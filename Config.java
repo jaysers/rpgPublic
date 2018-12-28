@@ -28,4 +28,8 @@ class Config{
 	public void clearError(){
 		error = false;
 	}
+
+	public boolean getError(){
+		return error;
+	}
 }
