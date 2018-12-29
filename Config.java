@@ -10,8 +10,9 @@ class Config{
 	public Config(String fileName){
 		try{
 			fis = new FileInputStream(fileName+".properties");
-			fos = new FileOutputStream(fileName+".properties");
 			p.load(fis);
+			fis.close();
+			fos = new FileOutputStream(fileName+".properties");
 		}
 		catch(IOException e){error = true;}
 	}
@@ -21,8 +22,10 @@ class Config{
 	}
 
 	public void setProp(String key, String value){
-		p.setProperty(key, value);
-		p.save(fos, "");
+		try{
+			p.setProperty(key, value);
+			p.store(fos, "");
+		}catch(IOException e){error = true;}
 	}
 
 	public void clearError(){
