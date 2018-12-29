@@ -45,6 +45,10 @@ public class Sound implements AutoCloseable {
 		return clip.getMicrosecondLength();
 	}
 
+	public void setPosition(long i){
+		clip.setMicrosecondPosition(i);
+	}
+
 	public void play(boolean breakOld) {
 		if (released) {
 			if (breakOld) {
