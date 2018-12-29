@@ -22,8 +22,11 @@ class Config{
 	}
 
 	public void setProp(String key, String value){
+		p.setProperty(key, value);
+	}
+
+	public void close(){
 		try{
-			p.setProperty(key, value);
 			p.store(fos, "");
 		}catch(IOException e){error = true;}
 	}
