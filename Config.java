@@ -2,16 +2,18 @@ import java.io.*;
 import java.util.Properties;
 
 class Config{
+	String fileName;
 	FileInputStream fis;
 	FileOutputStream fos;
 	Properties p = new Properties();
 	boolean error = false;
 
 	public Config(String fileName){
+		this.fileName = fileName;
 		try{
 			fis = new FileInputStream(fileName+".properties");
-			fos = new FileOutputStream(fileName+".properties");
 			p.load(fis);
+			fis.close();
 		}
 		catch(IOException e){error = true;}
 	}
@@ -22,7 +24,16 @@ class Config{
 
 	public void setProp(String key, String value){
 		p.setProperty(key, value);
-		p.save(fos, "");
+		try{
+			fos = new FileOutputStream(fileName+".properties");
+			p.store(fos, "");
+		}catch(IOException e){error = true;}
+	}
+
+	public void close(){
+		try{
+			p.store(fos, "");
+		}catch(IOException e){error = true;}
 	}
 
 	public void clearError(){
